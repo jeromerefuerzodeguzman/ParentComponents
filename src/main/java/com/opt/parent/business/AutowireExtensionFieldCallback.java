@@ -31,7 +31,15 @@ public class AutowireExtensionFieldCallback implements FieldCallback {
 
         ReflectionUtils.makeAccessible(field);
 
+        System.err.println(field.getType().getSimpleName());
+
         String extensionId = extensions.get(field.getType().getSimpleName());
+
+        if(extensionId == null) {
+            throw new RuntimeException("Bean not exist");
+        }
+
+        System.err.println(extensionId);
 
         Object annotatedObj = configurableBeanFactory.getBean(extensionId);
 
